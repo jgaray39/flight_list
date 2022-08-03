@@ -26,7 +26,7 @@ class CityController extends AbstractController
     }
     
     //création d'une ville
-    #[Route('/city/create', name: 'app_city_create', methods: ['GET', 'POST'])]
+    #[Route('/city/admin/create', name: 'admin_app_city_create', methods: ['GET', 'POST'])]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
         $city = new City();

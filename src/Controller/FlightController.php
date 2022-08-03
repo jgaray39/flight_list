@@ -21,7 +21,15 @@ class FlightController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_flight_new', methods: ['GET', 'POST'])]
+    #[Route('/admin', name: 'admin_app_flight_index', methods: ['GET'])]
+    public function indexAdmin(FlightRepository $flightRepository): Response
+    {
+        return $this->render('admin/flight/index.html.twig', [
+            'flights' => $flightRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/admin/new', name: 'admin_app_flight_new', methods: ['GET', 'POST'])]
     public function new(Request $request, FlightRepository $flightRepository): Response
     {
         $flight = new Flight();
@@ -31,24 +39,24 @@ class FlightController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $flightRepository->add($flight, true);
 
-            return $this->redirectToRoute('app_flight_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_app_flight_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('flight/new.html.twig', [
+        return $this->renderForm('admin/flight/new.html.twig', [
             'flight' => $flight,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_flight_show', methods: ['GET'])]
+    #[Route('/admin/{id}', name: 'admin_app_flight_show', methods: ['GET'])]
     public function show(Flight $flight): Response
     {
-        return $this->render('flight/show.html.twig', [
+        return $this->render('admin/flight/show.html.twig', [
             'flight' => $flight,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_flight_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/{id}/edit', name: 'admin_app_flight_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Flight $flight, FlightRepository $flightRepository): Response
     {
         $form = $this->createForm(FlightType::class, $flight);
@@ -57,22 +65,22 @@ class FlightController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $flightRepository->add($flight, true);
 
-            return $this->redirectToRoute('app_flight_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_app_flight_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('flight/edit.html.twig', [
+        return $this->renderForm('admin/flight/edit.html.twig', [
             'flight' => $flight,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_flight_delete', methods: ['POST'])]
+    #[Route('/admin/{id}', name: 'admin_app_flight_delete', methods: ['POST'])]
     public function delete(Request $request, Flight $flight, FlightRepository $flightRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$flight->getId(), $request->request->get('_token'))) {
             $flightRepository->remove($flight, true);
         }
 
-        return $this->redirectToRoute('app_flight_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_app_flight_index', [], Response::HTTP_SEE_OTHER);
     }
 }

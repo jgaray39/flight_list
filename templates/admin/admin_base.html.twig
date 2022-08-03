@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <nav>
+            <ul>
+                <a href="{{ path('admin_app_city_create') }}">Créer une ville</a>
+                <a href="{{ path('admin_app_flight_new') }}">Créer un vol</a>
+                <a href="{{ path('app_flight_index') }}">Vue publique</a>
+                <a href="{{ path('app_logout') }}">Deconnexion</a>
+            </ul>
+        </nav>
+        {% block body %}{% endblock %}
+    </body>
+</html>
