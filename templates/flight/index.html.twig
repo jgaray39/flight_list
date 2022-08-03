@@ -35,5 +35,14 @@
             </tr>
         {% endfor %}
         </tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <a href="{{ path('admin_app_flight_new') }}" class="btn btn-primary">Create new</a>
+                </td>
+            </tr>
+        </tfoot>
+        {% endif %}
     </table>
 {% endblock %}

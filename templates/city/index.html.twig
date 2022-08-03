@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin_base.html.twig' %}
 
 {% block title %}Hello CityController!{% endblock %}
 
@@ -9,7 +9,7 @@
 </style>
 
 {# On affiche la liste des cities passée en paramêtre #}
-<div class=\"example-wrapper\">
+<div class="example-wrapper">
     <h1>Liste des villes</h1>
     <ul>
         {% for city in cities %}
